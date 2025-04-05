@@ -3,7 +3,6 @@ import React from 'react'
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
 import { PostCard } from './post-card'
-import { Post } from '../payload-types'
 
 export async function PostsList() {
   const payload = await getPayload({

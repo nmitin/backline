@@ -1,6 +1,8 @@
+// app/(frontend)/layout.tsx
 import React from 'react'
 import './styles.css'
 import { ThemeProvider } from '@/components/theme-provider'
+import MainLayout from '@/components/layout/MainLayout'
 
 export const metadata = {
   description: 'A blank template using Payload in a Next.js app.',
@@ -19,7 +21,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <MainLayout>{children}</MainLayout>
         </ThemeProvider>
       </body>
     </html>
