@@ -10,6 +10,7 @@ import sharp from 'sharp'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
+// import AdminNavigation from './components/AdminNavigation'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -19,6 +20,10 @@ export default buildConfig({
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
+    },
+    components: {
+      beforeDashboard: ['@/components/AdminNavigation'],
+      // Другие компоненты могут быть добавлены здесь
     },
   },
   collections: [Posts, Users, Media],

@@ -143,9 +143,9 @@ export interface Post {
   summary?: string | null;
   slug: string;
   /**
-   * Обложка поста
+   * Обложка поста/ Если не выбрано, будет использовано изображение по умолчанию
    */
-  featuredImage: string | Media;
+  featuredImage?: (string | null) | Media;
   author: string | User;
   tags?:
     | {

@@ -9,13 +9,12 @@ import { useUser } from '@/hooks/useUser'
 import { Button } from '@/components/ui/button'
 import { FiUser, FiLogIn, FiLogOut, FiUserPlus, FiShield } from 'react-icons/fi'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { MdOutlineAdminPanelSettings } from 'react-icons/md'
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 
@@ -68,7 +67,7 @@ const Navbar: FC = () => {
                 <NavigationMenuItem>
                   <Link href="/admin" legacyBehavior passHref>
                     <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                      Админ-панель
+                      <MdOutlineAdminPanelSettings />
                     </NavigationMenuLink>
                   </Link>
                 </NavigationMenuItem>
@@ -90,17 +89,12 @@ const Navbar: FC = () => {
                   {/* Кнопка профиля */}
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Button
-                        variant={isAdmin() ? 'default' : 'outline'}
-                        className={isAdmin() ? 'bg-primary' : ''}
-                        onClick={() => router.push('/profile')}
-                      >
+                      <Button variant={'outline'} onClick={() => router.push('/profile')}>
                         {isAdmin() ? (
-                          <FiShield className="h-5 w-5 mr-2" />
+                          <FiShield className="h-5 w-5" />
                         ) : (
-                          <FiUser className="h-5 w-5 mr-2" />
+                          <FiUser className="h-5 w-5" />
                         )}
-                        <span className="hidden sm:inline">{user.name || user.email}</span>
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
@@ -125,7 +119,11 @@ const Navbar: FC = () => {
                   {/* Кнопка входа */}
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <Button variant="outline" size="icon" onClick={() => router.push('/login')}>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => router.push('/admin/login?redirect=/')}
+                      >
                         <FiLogIn className="h-5 w-5" />
                       </Button>
                     </TooltipTrigger>

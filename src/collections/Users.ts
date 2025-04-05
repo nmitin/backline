@@ -38,7 +38,7 @@ export const Users: CollectionConfig = {
       return { id: { equals: user?.id } } // Обычные пользователи видят только себя
     },
     // Обновлять пользователей может только администратор и сам пользователь
-    update: ({ req: { user }, id }) => {
+    update: ({ req: { user } }) => {
       if (user?.role === 'admin') return true
       return { id: { equals: user?.id } } // Пользователи могут обновлять только себя
     },

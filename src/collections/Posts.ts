@@ -10,6 +10,8 @@ import {
   UnorderedListFeature,
 } from '@payloadcms/richtext-lexical'
 import { Code } from '@/blocks/Code/config'
+import { generateSlugField } from '@/hooks/formatSlug'
+import { addDefaultFeaturedImage } from '@/hooks/setDefaultFeaturedImage'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
@@ -52,26 +54,15 @@ export const Posts: CollectionConfig = {
         description: 'Краткое описание поста, которое будет отображаться в списке',
       },
     },
-    {
-      name: 'slug',
-      type: 'text',
-      required: true,
-      admin: {
-        position: 'sidebar',
-      },
-      hooks: {
-        beforeValidate: [
-          // Можно добавить хук для автоматического создания slug из заголовка
-        ],
-      },
-    },
+    // Использование нашего поля с генерацией slug
+    generateSlugField('title'),
     {
       name: 'featuredImage',
       type: 'upload',
       relationTo: 'media',
-      required: true,
+      required: false,
       admin: {
-        description: 'Обложка поста',
+        description: 'Обложка поста/ Если не выбрано, будет использовано изображение по умолчанию',
         position: 'sidebar',
       },
     },
@@ -135,8 +126,7 @@ export const Posts: CollectionConfig = {
     },
   ],
   hooks: {
-    beforeChange: [
-      // Здесь можно добавить автоматический расчет времени чтения
-    ],
+    afterRead: [addDefaultFeaturedImage],
+    beforeValidate: [],
   },
 }
