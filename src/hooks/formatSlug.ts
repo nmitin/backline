@@ -21,7 +21,7 @@ export const generateSlugField = (fieldToUse: string): Field => ({
   unique: true,
   hooks: {
     beforeValidate: [
-      ({ value, data, siblingData }) => {
+      ({ value, siblingData }) => {
         // Если значение уже есть, просто форматируем его
         if (value) {
           return formatSlug(value)

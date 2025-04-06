@@ -1,18 +1,16 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import { FaCopyright } from 'react-icons/fa'
+import { LuCopy, LuCopyCheck } from 'react-icons/lu'
 import { useState } from 'react'
 
 export function CopyButton({ code }: { code: string }) {
-  const [text, setText] = useState('Copy')
+  const [isCopied, setIsCopied] = useState(false)
 
   function updateCopyStatus() {
-    if (text === 'Copy') {
-      setText(() => 'Copied!')
-      setTimeout(() => {
-        setText(() => 'Copy')
-      }, 1000)
-    }
+    setIsCopied(true)
+    setTimeout(() => {
+      setIsCopied(false)
+    }, 1500)
   }
 
   return (
@@ -25,8 +23,8 @@ export function CopyButton({ code }: { code: string }) {
           updateCopyStatus()
         }}
       >
-        <p>{text}</p>
-        <FaCopyright />
+        <p>{isCopied ? 'Copied!' : 'Copy'}</p>
+        {isCopied ? <LuCopyCheck className="text-green-500" /> : <LuCopy />}
       </Button>
     </div>
   )

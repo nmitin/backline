@@ -2,7 +2,26 @@ import React from 'react'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
+import { Post } from '@/payload-types'
 import { PostCard } from './post-card'
+
+// Тип для упрощенного поста
+type PostDoc = {
+  id: string
+  title: string
+  slug: string
+  summary?: string | null
+  publishedDate?: string | null
+  featuredImage?:
+    | {
+        url?: string
+        alt?: string
+      }
+    | undefined
+  readingTime?: number | null
+  tags?: Array<{ tag?: string | null }> | undefined
+  [key: string]: unknown
+}
 
 export async function PostsList() {
   const payload = await getPayload({
@@ -21,16 +40,16 @@ export async function PostsList() {
   })
 
   // Преобразуем данные в формат, подходящий для упрощенного PostCard
-  const posts = postDocs.map((post: any) => {
+  const posts = postDocs.map((post: Partial<Post>) => {
     // Извлекаем URL и alt из featuredImage
     let featuredImage = undefined
     if (post.featuredImage) {
       if (typeof post.featuredImage === 'string') {
         // Если это ID, нам нужно будет увеличить depth при запросе или оставить undefined
         featuredImage = undefined
-      } else {
+      } else if (typeof post.featuredImage === 'object') {
         featuredImage = {
-          url: post.featuredImage.url,
+          url: post.featuredImage.url || '',
           alt: post.featuredImage.alt,
         }
       }
@@ -38,15 +57,15 @@ export async function PostsList() {
 
     // Собираем необходимые данные для отображения
     return {
-      id: post.id,
-      title: post.title,
-      slug: post.slug,
+      id: post.id || '',
+      title: post.title || '',
+      slug: post.slug || '',
       summary: post.summary,
       publishedDate: post.publishedDate,
       featuredImage,
       readingTime: post.readingTime,
-      tags: post.tags,
-    }
+      tags: post.tags || undefined,
+    } as PostDoc
   })
 
   return (
