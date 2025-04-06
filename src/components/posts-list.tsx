@@ -67,9 +67,22 @@ export async function PostsList() {
       tags: post.tags || undefined,
     } as PostDoc
   })
-
+  // w-xl
+  // width: var(--container-xl); /* 36rem (576px) */
+  // w-2xl
+  // width: var(--container-2xl); /* 42rem (672px) */
+  // w-3xl
+  // width: var(--container-3xl); /* 48rem (768px) */
+  // w-4xl
+  // width: var(--container-4xl); /* 56rem (896px) */
+  // w-5xl
+  // width: var(--container-5xl); /* 64rem (1024px) */
+  // w-6xl
+  // width: var(--container-6xl); /* 72rem (1152px) */
+  // w-7xl
+  // width: var(--container-7xl); /* 80rem (1280px) */
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5 gap-6">
       {posts.map((post) => (
         <PostCard key={post.id} post={post} />
       ))}
